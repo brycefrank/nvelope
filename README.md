@@ -10,16 +10,47 @@ predictions for large amounts of tree records can be made with just a few lines 
 
 # Quick Start
 
+A typical use-case of `nvelope` is given in this section. First, the user retrieves the
+volume equation numbers using `get_voleq` for every species in a dataset. Then, these 
+equation numbers are merged to a tree list containing diameters and heights, and cubic
+foot volumes are retrieved using `get_volume`. We utilize `dplyr` package functions, 
+however this is not required to utilize `nvelope`.
+
+**Example Data**
+
+Consider a dataframe that specifies the USFS region, forest, district and species codes
+for some data of interest referred to as `spcd_data`.
+
 ```{r}
 library(nvelope)
+library(dplyr)
 
-# Load sample trees
-# todo specify a sample tree dataset
+spcd_data <- data.frame(
+  region = c(6, 6, 6),
+  forest = c('01', '01', '01'),
+  district = c('01', '01', '01'),
+  spcd = c(122, 202, 242)
+)
+```
 
-# Specify the volume equation number
-voleq <- 'BEH32000dfaklsjd'
+This dataframe contains all the necessary information used to retrieve volume equation 
+numbers for each species using `get_voleq`. 
 
-get_volume(voleq, region, forest, district, spcd, dbhob, httot)
+**Obtaining Volume Equation Numbers**
+
+We obtain
+
+```{r}
+spcd_data %>% mutate(voleq = get_voleq(region, forest, district, spcd))
+```
+
+and the result
+
+```{r}
+  region forest district spcd      voleq
+1      6     01       01  122 I11FW2W122
+2      6     01       01  202 I11FW2W202
+3      6     01       01  242 616BEHW242
 ```
 
 # Installation

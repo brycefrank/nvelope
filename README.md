@@ -79,6 +79,9 @@ tree_data.voleq <- merge(tree_data, spcd_data, by='spcd')
 we obtain the result
 
 ```{r}
+tree_data.voleq %>%
+  mutate(cvts = get_volume(voleq, region, forest, district, spcd, dia, tht))
+
   spcd  dia tht region forest district      voleq     cvts
 1  122 12.5  75      6     01       01 I11FW2W122 22.90000
 2  122 10.1  70      6     01       01 I11FW2W122 14.10000

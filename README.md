@@ -8,6 +8,9 @@ R access, but direct Fortran calls must be written by the user. `nvelope` simpli
 these calls with convenient wrapper functions, and tree-level volumes and biomass 
 predictions for large amounts of tree records can be made with just a few lines of code.
 
+`nvelope` is a one stop shop, and contains the most recent NVEL DLLs as part of the 
+default installation.
+
 # Quick Start
 
 A typical use-case of `nvelope` is given in this section. First, the user retrieves the
@@ -41,7 +44,8 @@ numbers for each species using `get_voleq`.
 We obtain
 
 ```{r}
-spcd_data %>% mutate(voleq = get_voleq(region, forest, district, spcd))
+spcd_data.voleq <- spcd_data %>%
+  mutate(voleq = get_voleq(region, forest, district, spcd))
 ```
 
 and the result
@@ -52,5 +56,37 @@ and the result
 2      6     01       01  202 I11FW2W202
 3      6     01       01  242 616BEHW242
 ```
+
+**Obtaining Cubic Foot Volumes**
+
+Naturally, the user will want to produce volumes for a set of trees. Consider the tree data
+
+```{r}
+tree_data <- data.frame(
+  spcd = c(122, 122, 202, 202, 242, 242),
+  dia = c(12.5, 10.1, 22.3, 17.3, 15.4, 16.3),
+  tht = c(75, 70, 101, 112, 95, 97)
+)
+```
+
+Each tree record will need a volume equation number. Naturally, we can merge `spcd_data.voleq` 
+by the `spcd` field to obtain what we need
+
+```{r}
+tree_data.voleq <- merge(tree_data, spcd_data, by='spcd')
+```
+
+we obtain the result
+
+```{r}
+  spcd  dia tht region forest district      voleq     cvts
+1  122 12.5  75      6     01       01 I11FW2W122 22.90000
+2  122 10.1  70      6     01       01 I11FW2W122 14.10000
+3  202 22.3 101      6     01       01 I11FW2W202 95.40000
+4  202 17.3 112      6     01       01 I11FW2W202 67.70000
+5  242 15.4  95      6     01       01 616BEHW242 50.84834
+6  242 16.3  97      6     01       01 616BEHW242 57.87342
+```
+
 
 # Installation

@@ -1,0 +1,12 @@
+Package: nvelope
+Title: A no-fuss R wrapper for the National Volume Estimator Library.
+Version: 0.0.0.9000
+Authors@R: 
+    person("Bryce", "Frank", , "bfrank70@gmail.com", role = c("aut", "cre"))
+Description: nvelope makes it easy to use volume and biomass models contained in the National
+    Volume Estimator Library dll.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1

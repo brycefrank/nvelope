@@ -12,9 +12,10 @@
 #' @param spcd A number or numeric vector representing the species code to
 #' query.
 #' @return A string representing the queried equation.
+#' @export
 get_voleq <- function(region, forest, district, spcd) {
   # TODO make a validation function that all vectors are the same length
-  n <- length(region)
+  n <- validate_numeric_args(region)
   result <- c()
 
   for(i in 1:n) {

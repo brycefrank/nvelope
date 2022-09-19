@@ -1,28 +1,32 @@
-`nvelope` is a no-fuss R wrapper for the National Volume Estimator Library (NVEL).
-The NVEL itself is maintained by the United States Forest Service (USFS) and can
-be accessed directly [here](https://www.fs.usda.gov/forestmanagement/products/measurement/volume/nvel/index.php).
+`nvelope` is a no-fuss R wrapper for the National Volume Estimator Library
+(NVEL). The NVEL itself is maintained by the United States Forest Service (USFS)
+and can be accessed directly [here](https://www.fs.usda.gov/forestmanagement/products/measurement/volume/nvel/index.php).
 
-The objective of `nvelope` is to create a user friendly interface for interacting
-with the NVEL in the R programming environment. The NVEL itself already provides 
-R access, but direct Fortran calls must be written by the user. `nvelope` simplifies
-these calls with convenient wrapper functions, and tree-level volumes and biomass 
-predictions for large amounts of tree records can be made with just a few lines of code.
+**nvelope is currently under development, enter at your own risk**
 
-`nvelope` is a one stop shop, and contains the most recent NVEL DLLs as part of the 
-default installation.
+The objective of `nvelope` is to create a user friendly interface for
+interacting with the NVEL in the R programming environment. The NVEL itself
+already provides R access, but direct Fortran calls must be written by the user.
+`nvelope` simplifies these calls with convenient wrapper functions, and
+tree-level volumes and biomass predictions for large amounts of tree records can
+be made with just a few lines of code.
+
+`nvelope` is a one stop shop, and contains the most recent NVEL DLLs as part of
+the default installation.
 
 # Quick Start
 
-A typical use-case of `nvelope` is given in this section. First, the user retrieves the
-volume equation numbers using `get_voleq` for every species in a dataset. Then, these 
-equation numbers are merged to a tree list containing diameters and heights, and cubic
-foot volumes are retrieved using `get_volume`. We utilize `dplyr` package functions, 
-however this is not required to utilize `nvelope`.
+A typical use-case of `nvelope` is given in this section. First, the user
+retrieves the volume equation numbers using `get_voleq` for every species in a
+dataset. Then, these equation numbers are merged to a tree list containing
+diameters and heights, and cubic foot volumes are retrieved using `get_volume`.
+We utilize `dplyr` package functions, however this is not required to utilize
+`nvelope`.
 
 **Example Data**
 
-Consider a dataframe that specifies the USFS region, forest, district and species codes
-for some data of interest referred to as `spcd_data`.
+Consider a dataframe that specifies the USFS region, forest, district and
+species codes for some data of interest referred to as `spcd_data`.
 
 ```{r}
 library(nvelope)
@@ -36,8 +40,8 @@ spcd_data <- data.frame(
 )
 ```
 
-This dataframe contains all the necessary information used to retrieve volume equation 
-numbers for each species using `get_voleq`. 
+This dataframe contains all the necessary information used to retrieve volume
+equation numbers for each species using `get_voleq`. 
 
 **Obtaining Volume Equation Numbers**
 
@@ -59,7 +63,8 @@ and the result
 
 **Obtaining Cubic Foot Volumes**
 
-Naturally, the user will want to produce volumes for a set of trees. Consider the tree data
+Naturally, the user will want to produce volumes for a set of trees. Consider
+the tree data
 
 ```{r}
 tree_data <- data.frame(
@@ -69,8 +74,8 @@ tree_data <- data.frame(
 )
 ```
 
-Each tree record will need a volume equation number. Naturally, we can merge `spcd_data.voleq` 
-by the `spcd` field to obtain what we need
+Each tree record will need a volume equation number. Naturally, we can merge
+`spcd_data.voleq` by the `spcd` field to obtain what we need
 
 ```{r}
 tree_data.voleq <- merge(tree_data, spcd_data, by='spcd')

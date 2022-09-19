@@ -1,4 +1,4 @@
-#' Retrieve a default volume equation number.
+#' Retrieve a default volume equation number for a specified location.
 #'
 #' This function returns a string representing the default volume equation
 #' number for the specified region, forest, district and species combination.
